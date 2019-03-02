@@ -18,8 +18,12 @@ plugins {
 }
 
 val optaplannerVersion = "7.17.0.Final"
+val lombokVersion = "1.18.6"
 
 dependencies {
+    compileOnly("org.projectlombok:lombok:$lombokVersion")
+    annotationProcessor("org.projectlombok:lombok:$lombokVersion")
+
     // This dependency is found on compile classpath of this component and consumers.
     implementation("org.optaplanner:optaplanner-core:$optaplannerVersion")
     implementation("org.optaplanner:optaplanner-examples:$optaplannerVersion") {
@@ -28,7 +32,7 @@ dependencies {
     }
 
     // Use the latest Groovy version for Spock testing
-    testImplementation("org.codehaus.groovy:groovy:2.5.6")
+    implementation("org.codehaus.groovy:groovy:2.5.6")
 
     // Use the awesome Spock testing and specification framework even with Java
     testImplementation("org.spockframework:spock-core:1.2-groovy-2.5")
