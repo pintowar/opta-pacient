@@ -17,12 +17,18 @@ plugins {
     groovy
 }
 
+val optaplannerVersion = "7.17.0.Final"
+
 dependencies {
     // This dependency is found on compile classpath of this component and consumers.
-    implementation("com.google.guava:guava:27.0.1-jre")
+    implementation("org.optaplanner:optaplanner-core:$optaplannerVersion")
+    implementation("org.optaplanner:optaplanner-examples:$optaplannerVersion") {
+        exclude(group = "com.sun.xml.bind")
+        exclude(group = "org.freemarker")
+    }
 
     // Use the latest Groovy version for Spock testing
-    testImplementation("org.codehaus.groovy:groovy-all:2.5.4")
+    testImplementation("org.codehaus.groovy:groovy:2.5.6")
 
     // Use the awesome Spock testing and specification framework even with Java
     testImplementation("org.spockframework:spock-core:1.2-groovy-2.5")
