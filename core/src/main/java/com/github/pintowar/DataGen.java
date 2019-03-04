@@ -36,10 +36,6 @@ public class DataGen {
     }
 
     String toJson(PatientAdmissionSchedule pas) throws JsonProcessingException {
-//        XStream xstream = new XStream(new JsonHierarchicalStreamDriver());
-//        xstream.setMode(XStream.ID_REFERENCES);
-//        return xstream.toXML(pas);
-
         val objectMapper = new ObjectMapper();
         objectMapper.registerModule(OptaPlannerJacksonModule.createModule());
         return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(pas);
@@ -53,15 +49,14 @@ public class DataGen {
             try {
                 FileOutputStream stream = new FileOutputStream(it.replace(".xml", ".json"));
                 IOUtils.write(experiment(base + it), stream, "UTF-8");
-                log.info("Deu certo!!");
+                log.info("Converted {} to json", it);
             } catch (IOException e) {
-                e.printStackTrace();
+                log.error(e.getMessage(), e);
             }
         });
     }
 
     public static void main(String[] args) throws JsonProcessingException, IOException {
-//        new DataGen().experiment("data/xml/testdata01.xml");
         new DataGen().instances();
     }
 }
