@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: opta-pacient
+  output:
+    ansi:
+      enabled: always

@@ -1,5 +1,5 @@
 subprojects {
-    version = "0.5.1"
+    version = "0.0.1"
     group = "com.github.pintowar"
 
     apply(plugin = "idea")
