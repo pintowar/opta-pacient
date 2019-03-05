@@ -16,12 +16,15 @@
 
 package com.github.pintowar.app.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
 import org.optaplanner.core.api.domain.lookup.PlanningId;
 
 @Data
 @XStreamAlias("Specialism")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class Specialism {
     @PlanningId
     private Long id;

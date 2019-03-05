@@ -7,7 +7,7 @@ plugins {
 project.buildDir = file("dist")
 
 node {
-    version = "8.14.0"
+    version = "10.15.2"
     yarnVersion = "1.12.3"
     download = true
 }

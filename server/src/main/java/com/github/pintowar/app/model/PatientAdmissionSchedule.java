@@ -38,32 +38,36 @@ public class PatientAdmissionSchedule {
     private Long id;
 
     @ProblemFactCollectionProperty
-    private List<Specialism> specialismList;
-    @ProblemFactCollectionProperty
     private List<Equipment> equipmentList;
     @ProblemFactCollectionProperty
-    private List<Department> departmentList;
-    @ProblemFactCollectionProperty
-    private List<DepartmentSpecialism> departmentSpecialismList;
-    @ProblemFactCollectionProperty
-    private List<Room> roomList;
-    @ProblemFactCollectionProperty
-    private List<RoomSpecialism> roomSpecialismList;
-    @ProblemFactCollectionProperty
-    private List<RoomEquipment> roomEquipmentList;
+    private List<Specialism> specialismList;
+
     @ValueRangeProvider(id = "bedRange")
     @ProblemFactCollectionProperty
     private List<Bed> bedList;
     @ProblemFactCollectionProperty
-    private List<Night> nightList;
+    private List<RoomEquipment> roomEquipmentList;
     @ProblemFactCollectionProperty
-    private List<Patient> patientList;
+    private List<RoomSpecialism> roomSpecialismList;
     @ProblemFactCollectionProperty
-    private List<AdmissionPart> admissionPartList;
+    private List<Room> roomList;
+    @ProblemFactCollectionProperty
+    private List<Department> departmentList;
+
+    @ProblemFactCollectionProperty
+    private List<DepartmentSpecialism> departmentSpecialismList;
+
     @ProblemFactCollectionProperty
     private List<RequiredPatientEquipment> requiredPatientEquipmentList;
     @ProblemFactCollectionProperty
     private List<PreferredPatientEquipment> preferredPatientEquipmentList;
+    @ProblemFactCollectionProperty
+    private List<Patient> patientList;
+
+    @ProblemFactCollectionProperty
+    private List<Night> nightList;
+    @ProblemFactCollectionProperty
+    private List<AdmissionPart> admissionPartList;
     @PlanningEntityCollectionProperty
     private List<BedDesignation> bedDesignationList;
 

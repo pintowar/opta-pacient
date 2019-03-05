@@ -16,8 +16,7 @@
 
 package com.github.pintowar.app.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
 import org.optaplanner.core.api.domain.lookup.PlanningId;
@@ -26,7 +25,7 @@ import java.util.List;
 
 @Data
 @XStreamAlias("Department")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class Department {
     @PlanningId
     private Long id;
@@ -35,6 +34,7 @@ public class Department {
     private Integer minimumAge = null;
     private Integer maximumAge = null;
 
+    @JsonManagedReference("roomDepartment")
     private List<Room> roomList;
 
     public int countHardDisallowedAdmissionPart(AdmissionPart admissionPart) {
@@ -52,6 +52,7 @@ public class Department {
         return count;
     }
 
+    @JsonIgnore
     public String getLabel() {
         String label = name;
         if (minimumAge != null) {

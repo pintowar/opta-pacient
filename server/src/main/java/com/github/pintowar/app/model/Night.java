@@ -16,18 +16,23 @@
 
 package com.github.pintowar.app.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
 import org.optaplanner.core.api.domain.lookup.PlanningId;
 
 @Data
 @XStreamAlias("Night")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class Night {
     @PlanningId
     private Long id;
 
     private int index;
 
+    @JsonIgnore
     public String getLabel() {
         return (index + 1) + "-JAN";
     }

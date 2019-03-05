@@ -5,15 +5,14 @@ import com.github.pintowar.app.util.PasReader;
 import com.google.common.collect.ImmutableMap;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.security.AnyTypePermission;
+import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternUtils;
 import org.springframework.http.MediaType;
 import org.springframework.util.ResourceUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -22,6 +21,7 @@ import java.net.URL;
 import java.util.Map;
 import java.util.stream.Stream;
 
+@Slf4j
 @RestController
 public class PasController {
 
@@ -46,4 +46,10 @@ public class PasController {
         return Mono.justOrEmpty(pas);
     }
 
+    @PutMapping(value = "/pas/", produces = {MediaType.APPLICATION_JSON_VALUE},
+            consumes = {MediaType.APPLICATION_JSON_VALUE})
+    public Mono<PatientAdmissionSchedule> solve(@RequestBody PatientAdmissionSchedule pas) throws IOException {
+        log.info("PAS with ID: {}", pas.getId());
+        return Mono.justOrEmpty(pas);
+    }
 }

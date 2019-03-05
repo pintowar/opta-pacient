@@ -16,7 +16,9 @@
 
 package com.github.pintowar.app.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
@@ -24,11 +26,12 @@ import org.optaplanner.core.api.domain.lookup.PlanningId;
 
 @Data
 @XStreamAlias("RoomSpecialism")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class RoomSpecialism {
     @PlanningId
     private Long id;
 
+    @JsonBackReference("roomspecialism")
     private Room room;
     private Specialism specialism;
 

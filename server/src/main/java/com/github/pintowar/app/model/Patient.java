@@ -17,6 +17,7 @@
 package com.github.pintowar.app.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
@@ -26,7 +27,7 @@ import java.util.List;
 
 @Data
 @XStreamAlias("Patient")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class Patient {
     @PlanningId
     private Long id;
@@ -36,7 +37,9 @@ public class Patient {
     private int age;
     private Integer preferredMaximumRoomCapacity;
 
+    @JsonManagedReference("requiredpatientequipment")
     private List<RequiredPatientEquipment> requiredPatientEquipmentList;
+    @JsonManagedReference("preferredpatientequipment")
     private List<PreferredPatientEquipment> preferredPatientEquipmentList;
 
     @Override

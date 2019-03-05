@@ -16,6 +16,7 @@
 
 package com.github.pintowar.app.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.pintowar.app.model.solver.BedDesignationDifficultyWeightFactory;
 import com.github.pintowar.app.model.solver.BedStrengthComparator;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -40,38 +41,47 @@ public class BedDesignation {
     // Complex methods
     // ************************************************************************
 
+    @JsonIgnore
     public Patient getPatient() {
         return admissionPart.getPatient();
     }
 
+    @JsonIgnore
     public Gender getPatientGender() {
         return admissionPart.getPatient().getGender();
     }
 
+    @JsonIgnore
     public int getPatientAge() {
         return admissionPart.getPatient().getAge();
     }
 
+    @JsonIgnore
     public Integer getPatientPreferredMaximumRoomCapacity() {
         return admissionPart.getPatient().getPreferredMaximumRoomCapacity();
     }
 
+    @JsonIgnore
     public Specialism getAdmissionPartSpecialism() {
         return admissionPart.getSpecialism();
     }
 
+    @JsonIgnore
     public int getFirstNightIndex() {
         return admissionPart.getFirstNight().getIndex();
     }
 
+    @JsonIgnore
     public int getLastNightIndex() {
         return admissionPart.getLastNight().getIndex();
     }
 
+    @JsonIgnore
     public int getAdmissionPartNightCount() {
         return admissionPart.getNightCount();
     }
 
+    @JsonIgnore
     public Room getRoom() {
         if (bed == null) {
             return null;
@@ -79,6 +89,7 @@ public class BedDesignation {
         return bed.getRoom();
     }
 
+    @JsonIgnore
     public int getRoomCapacity() {
         if (bed == null) {
             return Integer.MIN_VALUE;
@@ -86,6 +97,7 @@ public class BedDesignation {
         return bed.getRoom().getCapacity();
     }
 
+    @JsonIgnore
     public Department getDepartment() {
         if (bed == null) {
             return null;
@@ -93,6 +105,7 @@ public class BedDesignation {
         return bed.getRoom().getDepartment();
     }
 
+    @JsonIgnore
     public GenderLimitation getRoomGenderLimitation() {
         if (bed == null) {
             return null;

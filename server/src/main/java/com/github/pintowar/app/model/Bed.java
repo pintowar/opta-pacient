@@ -16,19 +16,23 @@
 
 package com.github.pintowar.app.model;
 
+import com.fasterxml.jackson.annotation.*;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
 import org.optaplanner.core.api.domain.lookup.PlanningId;
 
 @Data
 @XStreamAlias("Bed")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class Bed {
     @PlanningId
     private Long id;
 
+    @JsonBackReference("roombed")
     private Room room;
     private int indexInRoom;
 
+    @JsonIgnore
     public String getLabelInRoom() {
         if (indexInRoom > 'Z') {
             return Integer.toString(indexInRoom);
