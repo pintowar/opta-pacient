@@ -10,6 +10,8 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bootstrap-vue": "^2.0.0-rc.13",
+    "moment": "^2.24.0",
+    "vis": "^4.21.0",
     "vue": "^2.6.6",
     "vue-json-editor": "^1.2.3",
     "vue-router": "^3.0.2",
