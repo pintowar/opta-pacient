@@ -26,7 +26,7 @@ import org.optaplanner.core.api.domain.lookup.PlanningId;
 @Data
 @XStreamAlias("AdmissionPart")
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
-public class AdmissionPart {
+public class AdmissionPart implements Comparable<AdmissionPart> {
     @PlanningId
     private Long id;
 
@@ -51,4 +51,8 @@ public class AdmissionPart {
         return patient + "(" + firstNight + "-" + lastNight + ")";
     }
 
+    @Override
+    public int compareTo(AdmissionPart o) {
+        return this.firstNight.compareTo(o.firstNight);
+    }
 }

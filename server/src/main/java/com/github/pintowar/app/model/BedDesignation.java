@@ -21,6 +21,7 @@ import com.github.pintowar.app.model.solver.BedDesignationDifficultyWeightFactor
 import com.github.pintowar.app.model.solver.BedStrengthComparator;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.lookup.PlanningId;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
@@ -28,6 +29,7 @@ import org.optaplanner.core.api.domain.variable.PlanningVariable;
 @Data
 @PlanningEntity(difficultyWeightFactoryClass = BedDesignationDifficultyWeightFactory.class)
 @XStreamAlias("BedDesignation")
+@EqualsAndHashCode(exclude = {"bed"})
 public class BedDesignation {
     @PlanningId
     private Long id;

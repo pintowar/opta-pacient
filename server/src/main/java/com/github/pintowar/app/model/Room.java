@@ -19,6 +19,7 @@ package com.github.pintowar.app.model;
 import com.fasterxml.jackson.annotation.*;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.optaplanner.core.api.domain.lookup.PlanningId;
 
 import java.util.List;
@@ -26,6 +27,7 @@ import java.util.List;
 @Data
 @XStreamAlias("Room")
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
+@EqualsAndHashCode(exclude = {"roomSpecialismList", "roomEquipmentList", "bedList"})
 public class Room {
     @PlanningId
     private Long id;

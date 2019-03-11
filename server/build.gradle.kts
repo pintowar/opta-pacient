@@ -4,7 +4,7 @@ plugins {
     java
 }
 
-val optaplannerVersion = "7.17.0.Final"
+val optaplannerVersion = "7.18.0.Final"
 val lombokVersion = "1.18.6"
 val groovyVersion = "2.5.6"
 
@@ -22,7 +22,7 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.springframework.boot:spring-boot-starter-websocket")
-    runtimeOnly("org.springframework.boot:spring-boot-devtools")
+//    runtimeOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("org.codehaus.groovy:groovy:$groovyVersion")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")

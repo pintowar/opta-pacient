@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solver>
+  <!--<environmentMode>FULL_ASSERT</environmentMode>--><!-- To slowly prove there are no bugs in this code -->
+  <!--<moveThreadCount>AUTO</moveThreadCount>--><!-- To solve faster by saturating multiple CPU cores -->
+
+  <solutionClass>com.github.pintowar.app.model.PatientAdmissionSchedule</solutionClass>
+  <entityClass>com.github.pintowar.app.model.BedDesignation</entityClass>
+
+  <scoreDirectorFactory>
+    <scoreDrl>com/github/pintowar/app/solver/patientAdmissionScheduleScoreRules.drl</scoreDrl>
+  </scoreDirectorFactory>
+
+  <termination>
+    <!--<minutesSpentLimit>5</minutesSpentLimit>-->
+    <secondsSpentLimit>20</secondsSpentLimit>
+  </termination>
+  <constructionHeuristic>
+    <constructionHeuristicType>WEAKEST_FIT_DECREASING</constructionHeuristicType>
+  </constructionHeuristic>
+  <localSearch>
+    <unionMoveSelector>
+      <changeMoveSelector/>
+      <!--<swapMoveSelector/>-->
+      <!--<pillarSwapMoveSelector/>-->
+      <moveListFactory>
+        <moveListFactoryClass>com.github.pintowar.app.solver.move.factory.BedDesignationPillarPartSwapMoveFactory</moveListFactoryClass>
+      </moveListFactory>
+    </unionMoveSelector>
+    <acceptor>
+      <entityTabuSize>7</entityTabuSize>
+    </acceptor>
+    <forager>
+      <acceptedCountLimit>1000</acceptedCountLimit>
+    </forager>
+  </localSearch>
+</solver>

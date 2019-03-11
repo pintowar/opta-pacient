@@ -26,7 +26,7 @@ import org.optaplanner.core.api.domain.lookup.PlanningId;
 @Data
 @XStreamAlias("Night")
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
-public class Night {
+public class Night implements Comparable<Night> {
     @PlanningId
     private Long id;
 
@@ -42,4 +42,8 @@ public class Night {
         return Integer.toString(index);
     }
 
+    @Override
+    public int compareTo(Night o) {
+        return Integer.compare(this.index, o.index);
+    }
 }

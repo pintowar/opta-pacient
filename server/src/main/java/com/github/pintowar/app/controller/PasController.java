@@ -1,13 +1,10 @@
 package com.github.pintowar.app.controller;
 
 import com.github.pintowar.app.model.PatientAdmissionSchedule;
+import com.github.pintowar.app.service.PasService;
 import com.github.pintowar.app.util.PasReader;
 import com.google.common.collect.ImmutableMap;
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.security.AnyTypePermission;
-import lombok.extern.slf4j.Slf4j;
 import lombok.val;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternUtils;
 import org.springframework.http.MediaType;
@@ -17,16 +14,19 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.Map;
 import java.util.stream.Stream;
 
-@Slf4j
 @RestController
 public class PasController {
 
-    @Autowired
     private ResourceLoader resourceLoader;
+    private PasService service;
+
+    public PasController(ResourceLoader resourceLoader, PasService service) {
+        this.resourceLoader = resourceLoader;
+        this.service = service;
+    }
 
     @GetMapping(value = "/pas/", produces = {MediaType.APPLICATION_JSON_VALUE})
     public Flux<Map<String, String>> index() throws IOException {
@@ -48,8 +48,7 @@ public class PasController {
 
     @PutMapping(value = "/pas/", produces = {MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public Mono<PatientAdmissionSchedule> solve(@RequestBody PatientAdmissionSchedule pas) throws IOException {
-        log.info("PAS with ID: {}", pas.getId());
-        return Mono.justOrEmpty(pas);
+    public Mono<PatientAdmissionSchedule> solve(@RequestBody PatientAdmissionSchedule pas) {
+        return service.solve(pas);
     }
 }

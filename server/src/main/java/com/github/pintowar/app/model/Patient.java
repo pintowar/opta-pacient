@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.optaplanner.core.api.domain.lookup.PlanningId;
 
 import java.util.List;
@@ -28,6 +29,7 @@ import java.util.List;
 @Data
 @XStreamAlias("Patient")
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
+@EqualsAndHashCode(exclude = {"requiredPatientEquipmentList", "preferredPatientEquipmentList"})
 public class Patient {
     @PlanningId
     private Long id;
