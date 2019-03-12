@@ -8,7 +8,7 @@ project.buildDir = file("dist")
 
 node {
     version = "10.15.2"
-    yarnVersion = "1.12.3"
+    yarnVersion = "1.13.0"
     download = true
 }
 
