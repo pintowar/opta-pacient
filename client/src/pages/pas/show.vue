@@ -33,6 +33,7 @@
 import vueJsonEditor from 'vue-json-editor'
 import Timeline from '@/components/Timeline'
 import moment from 'moment'
+import Rainbow from 'color-rainbow'
 
 export default {
   name: 'pas',
@@ -53,38 +54,40 @@ export default {
   },
   computed: {
     groups () {
-      // return (this.pas.departmentList || []).flatMap(d => d.roomList.flatMap(r => {
-      //     const room = this.rooms[r]
-      //     return room.bedList.flatMap(b => {
-      //       const bed = this.beds[b]
-      //       const desc = `${d.name} | ${room.name} | ${bed.id}`
-      //       return {id: bed.id, content: desc, value: bed.id}
-      //     })
-      //   })
-      // )
-      return [{id: 0, content: 'Unassigned', value: 0}]
+      return (this.pas.departmentList || []).flatMap(d => d.roomList.flatMap(r => {
+          const room = this.rooms[r]
+          return room.bedList.flatMap(b => {
+            const bed = this.beds[b]
+            const desc = `${d.name} | ${room.name} | ${bed.id}`
+            const colors = room.roomEquipmentList.map(e => this.roomEquipments[e].equipment)
+                            .map(e => this.equipments[e].color)
+            return {id: bed.id, content: desc, value: bed.id, colors: colors,
+                    departament: d.name, room: room.name, bed: bed.id, gender: room.genderLimitation}
+          })
+        })
+      ).concat([{id: 0, content: 'Unassigned', value: 0, colors: [],
+                departament: 'Unassigned', room: 'Unassigned', bed: null, gender: null}])
     },
     items () {
       const beginning = [2019, 1, 1]
-      // debugger
-      return (this.pas.admissionPartList || []).map(admission => {
+      return (this.pas.bedDesignationList || []).map(designation => {
+        const admission = this.admissionParts[designation.admissionPart]
         const start = moment(beginning).add(this.nights[admission.firstNight].index, 'days')
         const end = moment(beginning).add(this.nights[admission.lastNight].index + 1, 'days')
-        const patient = this.patients[admission.patient]
 
-        return { id: `trip-${admission.id}`, group: 0, start: start.toDate(), end: end.toDate(), 
-              className: 'trip', content: patient.name }
+        const patient = this.patients[admission.patient]
+        const group = designation.bed == null ? 0 : designation.bed
+        const colors = patient.requiredPatientEquipmentList.map(e => this.requiredPatientEquipments[e].equipment)
+                      .map(e => this.equipments[e].color)
+        return { id: `bed-${designation.id}`, group: group, start: start.toDate(), end: end.toDate(), 
+              content: patient.name, gender: patient.gender, colors: colors }
       })
     }
   },
   mounted () {
     const id = this.$route.params.id
     this.$http.get(`/pas/${id}`).then(res => {
-      this.pas = res.data
-      this.rooms = this.identifications(this.pas.roomList)
-      this.beds = this.identifications(this.pas.bedList)
-      this.patients = this.identifications(this.pas.patientList)
-      this.nights = this.identifications(this.pas.nightList)
+      this.updateValue(res.data)  
     }, error => {
       this.$log.error(error)
       this.errorAlert = true
@@ -94,11 +97,7 @@ export default {
   methods: {
     onSubmit () {
       this.$http.put(`/pas/`, this.pas).then(res => {
-        this.pas = res.data
-        this.rooms = this.identifications(this.pas.roomList)
-        this.beds = this.identifications(this.pas.bedList)
-        this.patients = this.identifications(this.pas.patientList)
-        this.nights = this.identifications(this.pas.nightList)
+        this.updateValue(res.data)
       }, error => {
         this.$log.error(error)
         this.errorAlert = true
@@ -110,6 +109,20 @@ export default {
       list.forEach(e => obj[e['@id']] = e);
       return obj
     },
+    updateValue (data) {
+      this.pas = data
+      var aux = this.pas.equipmentList
+      var colors = Rainbow.create(aux.length)
+      
+      this.equipments = this.identifications(aux.map((e, idx) => ({...e, color: colors[idx].hexString()})))
+      this.requiredPatientEquipments = this.identifications(this.pas.requiredPatientEquipmentList)
+      this.roomEquipments = this.identifications(this.pas.roomEquipmentList)
+      this.rooms = this.identifications(this.pas.roomList)
+      this.beds = this.identifications(this.pas.bedList)
+      this.patients = this.identifications(this.pas.patientList)
+      this.nights = this.identifications(this.pas.nightList)
+      this.admissionParts = this.identifications(this.pas.admissionPartList)
+    }
   }
 }
 </script>
