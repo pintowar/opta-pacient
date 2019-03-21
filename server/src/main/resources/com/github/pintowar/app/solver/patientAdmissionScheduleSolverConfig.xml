@@ -6,9 +6,9 @@
   <solutionClass>com.github.pintowar.app.model.PatientAdmissionSchedule</solutionClass>
   <entityClass>com.github.pintowar.app.model.BedDesignation</entityClass>
 
-  <scoreDirectorFactory>
-    <scoreDrl>com/github/pintowar/app/solver/patientAdmissionScheduleScoreRules.drl</scoreDrl>
-  </scoreDirectorFactory>
+  <!--<scoreDirectorFactory>-->
+    <!--<scoreDrl>com/github/pintowar/app/solver/patientAdmissionScheduleScoreRules.drl</scoreDrl>-->
+  <!--</scoreDirectorFactory>-->
 
   <termination>
     <!--<minutesSpentLimit>5</minutesSpentLimit>-->

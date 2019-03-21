@@ -4,7 +4,7 @@ plugins {
     java
 }
 
-val optaplannerVersion = "7.18.0.Final"
+val optaplannerVersion = "7.19.0.Final"
 val lombokVersion = "1.18.6"
 val groovyVersion = "2.5.6"
 
