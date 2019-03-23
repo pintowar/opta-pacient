@@ -33,7 +33,7 @@ export default {
                 showCurrentTime: false,
                 zoomMin: 1000000,
                 zoomKey: 'ctrlKey',
-                groupOrder: function (a, b) { return a.value - b.value },
+                groupOrder: function (a, b) { return a.departament - b.departament || a.room - b.room || a.bed - b.bed },
                 format: {
                     minorLabels: { minute: 'h:mma', hour: 'ha' }
                 },
@@ -81,5 +81,11 @@ export default {
     width: 5px;
     height: 10px;
     border: 1px solid rgba(0, 0, 0, .2);
+}
+div.vis-readonly {
+    /* custom styling for readonly items... */
+    background-color: rgb(171, 220, 226);
+    border-color: rgb(171, 220, 226);
+    color: black;
 }
 </style>

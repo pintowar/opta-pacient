@@ -10,6 +10,11 @@
       </b-col>
     </b-row>
     <b-row>
+      <b-col cols="2">
+        <b-button type="submit" variant="primary" @click="onSubmit">Allocate Pacients</b-button>
+      </b-col>
+    </b-row>
+    <b-row>
       <b-col cols="12">
         <b-tabs content-class="mt-3">
           <b-tab title="Visual" active>
@@ -19,11 +24,6 @@
               <vue-json-editor v-model="pas" :show-btns="false"/>
           </b-tab>
         </b-tabs>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col cols="12">
-        <b-button type="submit" variant="primary" @click="onSubmit">Submit</b-button>
       </b-col>
     </b-row>
   </b-container>
