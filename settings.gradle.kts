@@ -8,4 +8,4 @@
  */
 
 rootProject.name = "opta-pacient"
-include("client", "server")
+include("client", "core", "server")
