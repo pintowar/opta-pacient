@@ -1,6 +1,11 @@
-spring:
+---
+micronaut:
   application:
-    name: opta-pacient
-  output:
-    ansi:
-      enabled: always
+    name: server
+
+---
+micronaut:
+  io:
+    watch:
+      paths: src/main
+      restart: true
