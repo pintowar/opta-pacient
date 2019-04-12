@@ -40,9 +40,8 @@ public class PasController {
         val resource = loader.getResources("classpath:data/xml/");
         return fromStream(resource).map(it -> Paths.get(it.toURI()))
                 .flatMap(it -> fromStream(Files.list(it)))
-                .map(it ->
-                        ImmutableMap.of("instance", it.getFileName().toString().replace(".xml", ""))
-                );
+                .map(it -> it.getFileName().toString().replace(".xml", "")).sorted()
+                .map(it -> ImmutableMap.of("instance", it));
     }
 
     @Get(value = "/{id}", produces = {MediaType.APPLICATION_JSON})
