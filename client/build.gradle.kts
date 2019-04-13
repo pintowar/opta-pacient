@@ -12,7 +12,7 @@ node {
     download = true
 }
 
-tasks.create<YarnTask>("bootRun") {
+tasks.create<YarnTask>("run") {
     dependsOn("yarn")
     group = "application"
     description = "Run the client app"
