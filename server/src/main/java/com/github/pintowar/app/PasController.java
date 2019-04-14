@@ -1,4 +1,4 @@
-package server;
+package com.github.pintowar.app;
 
 
 import com.github.pintowar.app.model.PatientAdmissionSchedule;

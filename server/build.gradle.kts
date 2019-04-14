@@ -3,7 +3,7 @@ import io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension
 
 plugins {
     id("io.spring.dependency-management") version "1.0.6.RELEASE"
-    id("com.github.johnrengelman.shadow") version "4.0.2"
+    id("com.github.johnrengelman.shadow") version "5.0.0"
     id("net.ltgt.apt-eclipse") version "0.21"
     id("net.ltgt.apt-idea") version "0.21"
     java
@@ -43,7 +43,7 @@ dependencies {
 //test.classpath += configurations.developmentOnly
 //
 application {
-    mainClassName = "server.Application"
+    mainClassName = "com.github.pintowar.app.Application"
 }
 //// use JUnit 5 platform
 val test by tasks.getting(Test::class) {
@@ -52,10 +52,7 @@ val test by tasks.getting(Test::class) {
 
 tasks {
     withType<ShadowJar> {
-        baseName = project.name
-        classifier = "shadow" // fat, shadow
         mergeServiceFiles()
-        version = "${project.version}"
     }
 }
 

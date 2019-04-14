@@ -1,4 +1,4 @@
-package server;
+package com.github.pintowar.app;
 
 import io.micronaut.runtime.Micronaut;
 

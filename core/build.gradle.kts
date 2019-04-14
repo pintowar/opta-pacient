@@ -2,7 +2,7 @@ plugins {
     `java-library`
 }
 
-val optaplannerVersion = "7.19.0.Final"
+val optaplannerVersion = "7.20.0.Final"
 val lombokVersion = "1.18.6"
 
 dependencies {

@@ -1,4 +1,4 @@
-package server;
+package com.github.pintowar.app;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.micronaut.context.annotation.Bean;
@@ -10,6 +10,7 @@ import io.micronaut.context.event.BeanCreatedEventListener;
 import io.micronaut.jackson.ObjectMapperFactory;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
+import org.drools.compiler.kie.builder.impl.KieServicesImpl;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.internal.io.ResourceFactory;
@@ -23,7 +24,7 @@ public class Configuration implements BeanCreatedEventListener<ObjectMapper> {
     @Bean
     @Context
     public KieContainer kieContainer() {
-        val kieServices = KieServices.Factory.get();
+        KieServices kieServices = KieServices.get();
 
         val kieFileSystem = kieServices.newKieFileSystem();
         kieFileSystem.write(ResourceFactory
@@ -38,7 +39,6 @@ public class Configuration implements BeanCreatedEventListener<ObjectMapper> {
     public ObjectMapper onCreated(BeanCreatedEvent<ObjectMapper> event) {
         // look at: https://stackoverflow.com/questions/53195071/how-to-configure-jackson-to-use-snake-case-in-micronaut
         final ObjectMapper mapper = new ObjectMapper();//event.getBean();
-        mapper.registerModule(OptaPlannerJacksonModule.createModule());
-        return mapper;
+        return mapper.registerModule(OptaPlannerJacksonModule.createModule());
     }
 }
