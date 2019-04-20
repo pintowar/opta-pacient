@@ -3,9 +3,12 @@ plugins {
     id("com.palantir.docker-run") version "0.22.0"
 }
 
+version = "0.1.0"
+group = "com.github.pintowar"
+
 subprojects {
-    version = "0.1.0"
-    group = "com.github.pintowar"
+    version = project.version
+    group = project.group
 
     apply(plugin = "idea")
 
@@ -41,7 +44,7 @@ tasks.create("assembleServerAndClient") {
         logger.quiet("JAR generated at $rootDir/build/. It combines the server and client projects.")
     }
 }
-//tasks.getByPath(":server:assemble").mustRunAfter("copyClientResources")
+tasks.getByPath(":server:assemble").mustRunAfter(":copyClientResources")
 
 tasks.create<Delete>("clean") {
     group = "build"
@@ -50,8 +53,10 @@ tasks.create<Delete>("clean") {
 }
 
 docker {
+//    dependsOn(tasks.getByName("assembleServerAndClient"))
     name = "pintowar/opta-pacient:$version"
     tag("latest", "pintowar/opta-pacient:latest")
+    files("$rootDir/build/server.jar")
 }
 
 dockerRun {

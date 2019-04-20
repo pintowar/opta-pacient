@@ -15,9 +15,15 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 
 import javax.inject.Inject;
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Map;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static hu.akarnokd.rxjava2.interop.FlowableInterop.fromOptional;
 import static hu.akarnokd.rxjava2.interop.FlowableInterop.fromStream;
@@ -37,10 +43,14 @@ public class PasController {
 
     @Get(produces = MediaType.APPLICATION_JSON)
     public Flowable<Map<String, String>> index() {
-        val resource = loader.getResources("classpath:data/xml/");
-        return fromStream(resource).map(it -> Paths.get(it.toURI()))
-                .flatMap(it -> fromStream(Files.list(it)))
-                .map(it -> it.getFileName().toString().replace(".xml", "")).sorted()
+        val testData = IntStream.range(1, 14)
+                .mapToObj(it -> String.format("classpath:data/xml/testdata%02d.xml", it));
+        val allFiles = Stream.concat(testData, Stream.of("classpath:data/xml/overconstrained01.xml"));
+        return fromStream(allFiles).map(loader::getResource)
+                .flatMap(it -> fromOptional(it))
+                .map(it -> it.getFile().split("/"))
+                .map(it -> it[it.length - 1].replace(".xml", ""))
+                .sorted()
                 .map(it -> ImmutableMap.of("instance", it));
     }
 
@@ -50,8 +60,8 @@ public class PasController {
         return fromOptional(loader.getResource(path).map(PasReader::readFromXml)).singleOrError();
     }
 
-    @Put(value = "/pas/", produces = {MediaType.APPLICATION_JSON}, consumes = {MediaType.APPLICATION_JSON})
-    public Single<PatientAdmissionSchedule> solve(@Body PatientAdmissionSchedule pas) {
-        return service.solve(pas);
+    @Put(produces = {MediaType.APPLICATION_JSON}, consumes = {MediaType.APPLICATION_JSON})
+    public Single<PatientAdmissionSchedule> solve(@Body Single<PatientAdmissionSchedule> pas) {
+        return pas.flatMap(service::solve);
     }
 }

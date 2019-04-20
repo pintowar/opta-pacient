@@ -9,3 +9,10 @@ micronaut:
     watch:
       paths: src/main
       restart: true
+---
+micronaut:
+  router:
+    static-resources:
+      public:
+        enabled: true
+        paths: classpath:public

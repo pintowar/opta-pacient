@@ -3,7 +3,7 @@ import io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension
 
 plugins {
     id("io.spring.dependency-management") version "1.0.6.RELEASE"
-    id("com.github.johnrengelman.shadow") version "5.0.0"
+    id("com.github.johnrengelman.shadow") version "4.0.2"
     id("net.ltgt.apt-eclipse") version "0.21"
     id("net.ltgt.apt-idea") version "0.21"
     java
@@ -40,8 +40,7 @@ dependencies {
     testRuntime("org.junit.jupiter:junit-jupiter-engine")
 }
 
-//test.classpath += configurations.developmentOnly
-//
+
 application {
     mainClassName = "com.github.pintowar.app.Application"
 }
@@ -49,17 +48,17 @@ application {
 val test by tasks.getting(Test::class) {
     useJUnitPlatform { }
 }
+test.classpath += developmentOnly
 
-tasks {
-    withType<ShadowJar> {
-        mergeServiceFiles()
-    }
+val shadowJar by tasks.getting(ShadowJar::class) {
+    mergeServiceFiles()
 }
+
 
 val run by tasks.getting(JavaExec::class)
 run.jvmArgs("-noverify", "-XX:TieredStopAtLevel=1")
 run.classpath += developmentOnly
-tasks.withType<JavaCompile>{
+tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
     options.compilerArgs.add("-parameters")
 }
