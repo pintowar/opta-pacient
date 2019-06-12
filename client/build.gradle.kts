@@ -1,13 +1,13 @@
 import com.moowork.gradle.node.yarn.YarnTask
 
 plugins {
-    id("com.moowork.node") version "1.2.0"
+    id("com.moowork.node") version "1.3.1"
 }
 
 project.buildDir = file("dist")
 
 node {
-    version = "10.15.2"
+    version = "12.4.0"
     yarnVersion = "1.13.0"
     download = true
 }
