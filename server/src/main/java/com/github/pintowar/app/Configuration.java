@@ -10,7 +10,6 @@ import io.micronaut.context.event.BeanCreatedEventListener;
 import io.micronaut.jackson.ObjectMapperFactory;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
-import org.drools.compiler.kie.builder.impl.KieServicesImpl;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.internal.io.ResourceFactory;
